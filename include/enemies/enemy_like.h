@@ -8,7 +8,7 @@
 
 class EnemyLike {
 public:
-    virtual void run(float delta, const std::list<Wall> &wallList) = 0;
+    virtual void run(float delta, const std::list<Wall *> &wallList) = 0;
 
     virtual void render() const = 0;
 };

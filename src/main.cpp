@@ -7,6 +7,7 @@
 #include <enemies/enemy_like.h>
 #include <enemies/enemy_factory.h>
 #include <enemies/basic_enemy_tank.h>
+#include <iostream>
 
 Camera *camera;
 Player *player;
@@ -14,8 +15,8 @@ Environment *environment;
 EnemyFactory *enemyFactory;
 
 std::list<Bullet> bulletList;
-std::list<Wall> wallList;
-std::list<EnemyLike*> enemyList;
+std::list<Wall *> wallList;
+std::list<EnemyLike *> enemyList;
 
 int mouseX, mouseY;
 auto actualTime = 0;
@@ -23,9 +24,6 @@ auto pressedKeys = new char[256];
 
 void run(float delta) {
     environment->run(delta);
-//    std::list<std::list<Collidable*>> collidables {
-//        wallList
-//    };
 
     if (pressedKeys[119] != 0)
         player->moveForward(delta, wallList);
@@ -68,11 +66,11 @@ void render() {
     for (const Bullet &bullet : bulletList)
         bullet.render();
 
-    for (const EnemyLike *enemy : enemyList)
+    for (const auto enemy : enemyList)
         enemy->render();
 
-    for (const Wall &wall : wallList)
-        wall.render();
+    for (const auto wall : wallList)
+        wall->render();
 
     glutSwapBuffers();
     glutPostRedisplay();
@@ -121,8 +119,8 @@ void createInstances() {
     camera = new Camera(player->getPosition());
     enemyFactory = new EnemyFactory();
 
-    for (const Vector3D &wallPosition : WALLS_POSITIONS)
-        wallList.emplace_back(wallPosition);
+    for (const auto wallPosition : WALLS_POSITIONS)
+        wallList.push_back(new Wall{wallPosition});
 
     enemyList.push_back(new BasicEnemyTank{Vector3D{-30, 10, 0}});
 }

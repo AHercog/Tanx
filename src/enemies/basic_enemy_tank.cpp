@@ -11,7 +11,7 @@
 BasicEnemyTank::BasicEnemyTank(const Vector3D &position) : EnemyLike(), position(position) {
 }
 
-void BasicEnemyTank::run(float delta, const std::list<Wall> &wallList) {
+void BasicEnemyTank::run(float delta, const std::list<Wall *> &wallList) {
     Vector3D preTranslationPosition = this->position;
     this->position += this->lowerPartDirection * this->SPEED * delta;
 
@@ -36,10 +36,10 @@ void BasicEnemyTank::render() const {
     glPopMatrix();
 }
 
-bool BasicEnemyTank::isColliding(const std::list<Wall> &wallList) {
-    for (const Wall &wall : wallList) {
-        const Vector3D &differenceVector = wall.getPosition() - this->position;
-        const auto minimalPossibleDistance = this->SIZE / 2.0f + wall.getSize() / 2.0f;
+bool BasicEnemyTank::isColliding(const std::list<Wall *> &wallList) {
+    for (const auto wall : wallList) {
+        const Vector3D &differenceVector = wall->getPosition() - this->position;
+        const auto minimalPossibleDistance = this->SIZE / 2.0f + wall->getSize() / 2.0f;
 
         if (differenceVector.length() <= minimalPossibleDistance)
             return true;

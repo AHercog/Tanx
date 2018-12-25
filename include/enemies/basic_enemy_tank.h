@@ -14,7 +14,7 @@ class BasicEnemyTank : public EnemyLike {
 public:
     explicit BasicEnemyTank(const Vector3D &position);
 
-    void run(float delta, const std::list<Wall> &wallList) override;
+    void run(float delta, const std::list<Wall *> &wallList) override;
 
     void render() const override;
 
@@ -26,7 +26,7 @@ private:
     Vector3D lowerPartDirection{1, 0, 0};
     Vector3D upperPartDirection{1, 0, 0};
 
-    bool isColliding(const std::list<Wall> &wallList);
+    bool isColliding(const std::list<Wall *> &wallList);
 };
 
 #endif //CZOLGI_BASIC_ENEMY_TANK_H

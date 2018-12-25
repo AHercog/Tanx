@@ -38,7 +38,7 @@ void Player::rotateRight(float delta) {
     this->lowerPartDirection.rotateAlongZ(-this->ROTATION_SPEED * delta);
 }
 
-void Player::moveForward(float delta, const std::list<Wall> &wallList) {
+void Player::moveForward(float delta, const std::list<Wall *> &wallList) {
     Vector3D preTranslationPosition = this->position;
     this->position += this->lowerPartDirection * this->SPEED * delta;
 
@@ -46,7 +46,7 @@ void Player::moveForward(float delta, const std::list<Wall> &wallList) {
         this->position = preTranslationPosition;
 }
 
-void Player::moveBackward(float delta, const std::list<Wall> &wallList) {
+void Player::moveBackward(float delta, const std::list<Wall *> &wallList) {
     Vector3D preTranslationPosition = this->position;
     this->position -= this->lowerPartDirection * this->SPEED * delta;
 
@@ -54,10 +54,10 @@ void Player::moveBackward(float delta, const std::list<Wall> &wallList) {
         this->position = preTranslationPosition;
 }
 
-bool Player::isColliding(const std::list<Wall> &wallList) {
-    for (const Wall &wall : wallList) {
-        const Vector3D &differenceVector = wall.getPosition() - this->position;
-        const auto minimalPossibleDistance = this->SIZE / 2.0f + wall.getSize() / 2.0f;
+bool Player::isColliding(const std::list<Wall *> &wallList) {
+    for (const auto wall : wallList) {
+        const Vector3D &differenceVector = wall->getPosition() - this->position;
+        const auto minimalPossibleDistance = this->SIZE / 2.0f + wall->getSize() / 2.0f;
 
         if (differenceVector.length() <= minimalPossibleDistance)
             return true;

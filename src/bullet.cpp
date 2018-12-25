@@ -27,14 +27,14 @@ void Bullet::render() const {
     glPopMatrix();
 }
 
-bool Bullet::shouldBeDestroyed(const std::list<Wall> &wallList) const {
+bool Bullet::shouldBeDestroyed(const std::list<Wall *> &wallList) const {
     if (std::fabs(this->position.getX()) > 100 or std::fabs(this->position.getY()) > 100)
         return true;
 
-    for (const Wall& wall : wallList) {
-        auto positionDifference = this->position - wall.getPosition();
+    for (const auto wall : wallList) {
+        auto positionDifference = this->position - wall->getPosition();
 
-        if (positionDifference.length() < wall.getSize() / 2.0f)
+        if (positionDifference.length() < wall->getSize() / 2.0f)
             return true;
     }
 
