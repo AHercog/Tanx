@@ -6,6 +6,7 @@
 #include <GL/gl.h>
 #include <GL/freeglut.h>
 #include <cmath>
+#include <enemies/enemy_like.h>
 
 #include "bullet.h"
 
@@ -27,15 +28,19 @@ void Bullet::render() const {
     glPopMatrix();
 }
 
-bool Bullet::shouldBeDestroyed(const std::list<Wall *> &wallList) const {
+bool Bullet::shouldBeDestroyed(const std::list<Collidable *> &collidableList) const {
     if (std::fabs(this->position.getX()) > 100 or std::fabs(this->position.getY()) > 100)
         return true;
 
-    for (const auto wall : wallList) {
-        auto positionDifference = this->position - wall->getPosition();
+    for (const auto collidable : collidableList) {
+        auto positionDifference = this->position - collidable->getPosition();
 
-        if (positionDifference.length() < wall->getSize() / 2.0f)
+        if (positionDifference.length() < collidable->getSize() / 2.0f) {
+            if (auto enemy = dynamic_cast<EnemyLike *>(collidable))
+                enemy->getHit(10);
+
             return true;
+        }
     }
 
     return false;

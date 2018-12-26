@@ -17,7 +17,7 @@ public:
 
     void render() const;
 
-    bool shouldBeDestroyed(const std::list<Wall *> &wallList) const;
+    bool shouldBeDestroyed(const std::list<Collidable *> &collidableList) const;
 
 private:
     const int SPEED = 150;

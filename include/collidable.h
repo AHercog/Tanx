@@ -8,6 +8,7 @@
 #include "vector_3d.h"
 
 class Collidable {
+public:
     virtual const Vector3D &getPosition() const = 0;
 
     virtual int getSize() const = 0;

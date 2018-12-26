@@ -27,5 +27,3 @@ Vector3D Camera::getMouseRelativeCoordinates() {
 void Camera::setMousePosition(const Vector3D &mousePosition) {
     this->mousePosition = mousePosition;
 }
-
-

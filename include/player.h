@@ -22,15 +22,15 @@ public:
 
     void rotateRight(float delta);
 
-    void moveForward(float delta, const std::list<Wall *> &wallList);
+    void moveForward(float delta, const std::list<Collidable *> &collidableList);
 
-    void moveBackward(float delta, const std::list<Wall *> &wallList);
-
-    void rotateUpperPart(const Vector3D &direction);
+    void moveBackward(float delta, const std::list<Collidable *> &collidableList);
 
     Bullet shoot();
 
-    const Vector3D &getPosition();
+    void rotateUpperPart(const Vector3D &direction) { this->upperPartDirection = direction / direction.length(); }
+
+    const Vector3D &getPosition() { return this->position; }
 
 private:
     const int SIZE = 6;
@@ -42,7 +42,7 @@ private:
     Vector3D lowerPartDirection{1, 0, 0};
     Vector3D upperPartDirection{1, 0, 0};
 
-    bool isColliding(const std::list<Wall *> &wallList);
+    bool isColliding(const std::list<Collidable *> &collidableList);
 };
 
 

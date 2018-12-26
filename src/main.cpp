@@ -23,13 +23,17 @@ auto actualTime = 0;
 auto pressedKeys = new char[256];
 
 void run(float delta) {
+    std::list<Collidable *> collidables;
+    collidables.insert(collidables.end(), wallList.begin(), wallList.end());
+    collidables.insert(collidables.end(), enemyList.begin(), enemyList.end());
+
     environment->run(delta);
 
     if (pressedKeys[119] != 0)
-        player->moveForward(delta, wallList);
+        player->moveForward(delta, collidables);
 
     if (pressedKeys[115] != 0)
-        player->moveBackward(delta, wallList);
+        player->moveBackward(delta, collidables);
 
     if (pressedKeys[97] != 0)
         player->rotateLeft(delta);
@@ -43,15 +47,15 @@ void run(float delta) {
     for (auto bullet = bulletList.begin(); bullet != bulletList.end(); ++bullet) {
         bullet->run(delta);
 
-        if (bullet->shouldBeDestroyed(wallList))
+        if (bullet->shouldBeDestroyed(collidables))
             bullet = bulletList.erase(bullet);
     }
 
     for (auto enemy = enemyList.begin(); enemy != enemyList.end(); ++enemy) {
-        (*enemy)->run(delta, wallList);
+        (*enemy)->run(delta, collidables);
 
-//        if (enemy->shouldBeDestroyed(wallList))
-//            enemy = enemyList.erase(enemy);
+        if ((*enemy)->shouldBeDestroyed())
+            enemy = enemyList.erase(enemy);
     }
 }
 
@@ -63,7 +67,7 @@ void render() {
     player->render();
     environment->render();
 
-    for (const Bullet &bullet : bulletList)
+    for (const auto bullet : bulletList)
         bullet.render();
 
     for (const auto enemy : enemyList)
@@ -123,6 +127,7 @@ void createInstances() {
         wallList.push_back(new Wall{wallPosition});
 
     enemyList.push_back(new BasicEnemyTank{Vector3D{-30, 10, 0}});
+    enemyList.push_back(new BasicEnemyTank{Vector3D{-45, 15, 0}});
 }
 
 void init(int argc, char **argv) {

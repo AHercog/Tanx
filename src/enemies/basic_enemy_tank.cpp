@@ -6,16 +6,14 @@
 #include <GL/gl.h>
 #include <GL/freeglut.h>
 
-#include "enemies/basic_enemy_tank.h"
-
 BasicEnemyTank::BasicEnemyTank(const Vector3D &position) : EnemyLike(), position(position) {
 }
 
-void BasicEnemyTank::run(float delta, const std::list<Wall *> &wallList) {
+void BasicEnemyTank::run(float delta, const std::list<Collidable *> &collidableList) {
     Vector3D preTranslationPosition = this->position;
     this->position += this->lowerPartDirection * this->SPEED * delta;
 
-    if (this->isColliding(wallList))
+    if (this->isColliding(collidableList))
         this->position = preTranslationPosition;
 }
 
@@ -36,10 +34,13 @@ void BasicEnemyTank::render() const {
     glPopMatrix();
 }
 
-bool BasicEnemyTank::isColliding(const std::list<Wall *> &wallList) {
-    for (const auto wall : wallList) {
-        const Vector3D &differenceVector = wall->getPosition() - this->position;
-        const auto minimalPossibleDistance = this->SIZE / 2.0f + wall->getSize() / 2.0f;
+bool BasicEnemyTank::isColliding(const std::list<Collidable *> &collidableList) {
+    for (const auto collidable : collidableList) {
+        if (collidable == this)
+            continue;
+
+        const Vector3D &differenceVector = collidable->getPosition() - this->position;
+        const auto minimalPossibleDistance = this->SIZE / 2.0f + collidable->getSize() / 2.0f;
 
         if (differenceVector.length() <= minimalPossibleDistance)
             return true;
