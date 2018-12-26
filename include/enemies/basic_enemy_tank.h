@@ -29,7 +29,9 @@ public:
 private:
     const int SIZE = 6;
     const int SPEED = 25;
+    const float CHANGE_DIRECTION_TIMER_LIMIT = 3;
 
+    float changeDirectionTimer = 0;
     int hp = 50;
     Vector3D position;
     Vector3D lowerPartDirection{1, 0, 0};

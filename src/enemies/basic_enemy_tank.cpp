@@ -5,11 +5,27 @@
 #include <enemies/basic_enemy_tank.h>
 #include <GL/gl.h>
 #include <GL/freeglut.h>
+#include <random>
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 BasicEnemyTank::BasicEnemyTank(const Vector3D &position) : EnemyLike(), position(position) {
 }
 
 void BasicEnemyTank::run(float delta, const std::list<Collidable *> &collidableList) {
+    this->changeDirectionTimer += delta;
+
+    if (this->changeDirectionTimer >= this->CHANGE_DIRECTION_TIMER_LIMIT) {
+        this->changeDirectionTimer = 0;
+
+        auto randomVector = Vector3D{Random::get(-1.0f, 1.0f), Random::get(-1.0f, 1.0f), 0};
+        randomVector /= randomVector.length();
+
+        this->lowerPartDirection = randomVector;
+        this->upperPartDirection = randomVector;
+    }
+
     Vector3D preTranslationPosition = this->position;
     this->position += this->lowerPartDirection * this->SPEED * delta;
 
