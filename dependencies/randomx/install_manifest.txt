@@ -1,0 +1,4 @@
+/usr/local/include/effolkronium/random.hpp
+/usr/local/cmake/effolkronium_randomTargets.cmake
+/usr/local/cmake/effolkronium_randomConfig.cmake
+/usr/local/cmake/effolkronium_randomConfigVersion.cmake
