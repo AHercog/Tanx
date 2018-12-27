@@ -7,6 +7,7 @@
 #include <GL/freeglut.h>
 #include <random>
 #include <effolkronium/random.hpp>
+#include <iostream>
 
 using Random = effolkronium::random_static;
 
@@ -25,6 +26,11 @@ void BasicEnemyTank::run(float delta, const std::list<Collidable *> &collidableL
         this->lowerPartDirection = randomVector;
         this->upperPartDirection = randomVector;
     }
+
+    if (this->shootTimer >= this->SHOOT_TIMER_LIMIT)
+        this->shootTimer = 0;
+
+    this->shootTimer += delta;
 
     Vector3D preTranslationPosition = this->position;
     this->position += this->lowerPartDirection * this->SPEED * delta;
@@ -63,4 +69,17 @@ bool BasicEnemyTank::isColliding(const std::list<Collidable *> &collidableList) 
     }
 
     return false;
+}
+
+bool BasicEnemyTank::detectPlayer(const std::list<Wall *> &wallList, const Player *const player) {
+    auto differenceVector = player->getPosition() - this->position;
+    differenceVector /= differenceVector.length();
+    this->upperPartDirection = differenceVector;
+
+    const auto isShootLimitExtended = this->shootTimer >= this->SHOOT_TIMER_LIMIT;
+    return isShootLimitExtended;
+}
+
+Bullet BasicEnemyTank::shoot() {
+    return Bullet(this->position + this->upperPartDirection * 10, this->upperPartDirection);
 }

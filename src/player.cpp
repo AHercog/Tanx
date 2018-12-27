@@ -10,6 +10,8 @@
 Player::Player(const Vector3D &coordinates) : position(coordinates) {
 }
 
+Player::~Player() = default;
+
 void Player::run(float delta) {
 }
 
@@ -56,6 +58,9 @@ void Player::moveBackward(float delta, const std::list<Collidable *> &collidable
 
 bool Player::isColliding(const std::list<Collidable *> &collidableList) {
     for (const auto collidable : collidableList) {
+        if (collidable == this)
+            continue;
+
         const Vector3D &differenceVector = collidable->getPosition() - this->position;
         const auto minimalPossibleDistance = this->SIZE / 2.0f + collidable->getSize() / 2.0f;
 

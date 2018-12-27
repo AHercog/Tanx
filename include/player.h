@@ -10,9 +10,11 @@
 #include "bullet.h"
 #include "wall.h"
 
-class Player {
+class Player : public Collidable {
 public:
     explicit Player(const Vector3D &coordinates);
+
+    virtual ~Player();
 
     void run(float delta);
 
@@ -30,11 +32,13 @@ public:
 
     void rotateUpperPart(const Vector3D &direction) { this->upperPartDirection = direction / direction.length(); }
 
-    const Vector3D &getPosition() { return this->position; }
+    const Vector3D &getPosition() const override { return this->position; }
+
+    int getSize() const override { return this->SIZE; }
 
 private:
     const int SIZE = 6;
-    const int SPEED = 25;
+    const int SPEED = 40;
     const int ROTATION_SPEED = 180;
 
     int hp = 100;

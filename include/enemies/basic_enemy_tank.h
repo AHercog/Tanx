@@ -22,6 +22,10 @@ public:
 
     bool shouldBeDestroyed() override {return this->hp <= 0;}
 
+    bool detectPlayer(const std::list<Wall *> &wallList, const Player *player) override;
+
+    Bullet shoot() override;
+
     const Vector3D &getPosition() const override { return this->position; }
 
     int getSize() const override { return this->SIZE; }
@@ -29,8 +33,10 @@ public:
 private:
     const int SIZE = 6;
     const int SPEED = 25;
+    const float SHOOT_TIMER_LIMIT = 1;
     const float CHANGE_DIRECTION_TIMER_LIMIT = 3;
 
+    float shootTimer = 0;
     float changeDirectionTimer = 0;
     int hp = 50;
     Vector3D position;

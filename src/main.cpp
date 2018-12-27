@@ -26,6 +26,7 @@ void run(float delta) {
     std::list<Collidable *> collidables;
     collidables.insert(collidables.end(), wallList.begin(), wallList.end());
     collidables.insert(collidables.end(), enemyList.begin(), enemyList.end());
+    collidables.push_back(player);
 
     environment->run(delta);
 
@@ -47,12 +48,15 @@ void run(float delta) {
     for (auto bullet = bulletList.begin(); bullet != bulletList.end(); ++bullet) {
         bullet->run(delta);
 
-        if (bullet->shouldBeDestroyed(collidables))
-            bullet = bulletList.erase(bullet);
+//        if (bullet->shouldBeDestroyed(collidables))
+//            bullet = bulletList.erase(bullet);
     }
 
     for (auto enemy = enemyList.begin(); enemy != enemyList.end(); ++enemy) {
         (*enemy)->run(delta, collidables);
+
+        if ((*enemy)->detectPlayer(wallList, player))
+            bulletList.push_back((*enemy)->shoot());
 
         if ((*enemy)->shouldBeDestroyed())
             enemy = enemyList.erase(enemy);
