@@ -20,7 +20,7 @@ public:
     bool shouldBeDestroyed(const std::list<Collidable *> &collidableList) const;
 
 private:
-    const int SPEED = 150;
+    const int SPEED = 100;
 
     bool isGood;
     Vector3D direction;

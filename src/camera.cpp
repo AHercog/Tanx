@@ -13,7 +13,7 @@ Camera::Camera(const Vector3D &playerPosition) : playerPosition(playerPosition),
 }
 
 void Camera::run() {
-    gluLookAt(this->playerPosition.getX(), this->playerPosition.getY(), this->CAMERA_HEIGHT,
+    gluLookAt(this->playerPosition.getX(), this->playerPosition.getY() - CAMERA_HEIGHT / 2, this->CAMERA_HEIGHT,
               this->playerPosition.getX(), this->playerPosition.getY(), 0.0,
               0.0, 1.0, 0.0);
 }

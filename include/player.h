@@ -10,6 +10,7 @@
 #include "bullet.h"
 #include "wall.h"
 #include "model_handler.h"
+#include "health_bar.h"
 
 class Player : public Collidable {
 public:
@@ -51,6 +52,7 @@ private:
     Vector3D lowerPartDirection{1, 0, 0};
     Vector3D upperPartDirection{1, 0, 0};
     ModelHandler modelHandler{const_cast<char *>("../assets/tank.obj")};
+    HealthBar healthBar{this->hp};
 
     bool isColliding(const std::list<Collidable *> &collidableList);
 };

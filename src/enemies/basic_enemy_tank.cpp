@@ -37,6 +37,8 @@ void BasicEnemyTank::run(float delta, const std::list<Collidable *> &collidableL
 
     if (this->isColliding(collidableList))
         this->position = preTranslationPosition;
+
+    this->healthBar.setHp(this->hp);
 }
 
 void BasicEnemyTank::render() const {
@@ -53,6 +55,8 @@ void BasicEnemyTank::render() const {
     glRotatef(this->upperPartDirection.getAngleAlongZ(), 0, 0, 1);
     this->modelHandler.drawModel(0);
     glPopMatrix();
+
+    this->healthBar.render(this->position.getX(), this->position.getY());
 }
 
 bool BasicEnemyTank::isColliding(const std::list<Collidable *> &collidableList) {
@@ -63,8 +67,14 @@ bool BasicEnemyTank::isColliding(const std::list<Collidable *> &collidableList) 
         const Vector3D &differenceVector = collidable->getPosition() - this->position;
         const auto minimalPossibleDistance = this->SIZE / 2.0f + collidable->getSize() / 2.0f;
 
-        if (differenceVector.length() <= minimalPossibleDistance)
+        if (differenceVector.length() <= minimalPossibleDistance) {
+            auto randomVector = Vector3D{Random::get(-1.0f, 1.0f), Random::get(-1.0f, 1.0f), 0};
+            randomVector /= randomVector.length();
+
+            this->lowerPartDirection = randomVector;
+            this->upperPartDirection = randomVector;
             return true;
+        }
     }
 
     return false;

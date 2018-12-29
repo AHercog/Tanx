@@ -13,6 +13,7 @@ Player::Player(const Vector3D &coordinates) : position(coordinates) {
 Player::~Player() = default;
 
 void Player::run(float delta) {
+    this->healthBar.setHp(this->hp);
 }
 
 void Player::render() {
@@ -30,6 +31,7 @@ void Player::render() {
     this->modelHandler.drawModel(0);
     glPopMatrix();
 
+    this->healthBar.render(this->position.getX(), this->position.getY());
 }
 
 void Player::rotateLeft(float delta) {
@@ -50,7 +52,7 @@ void Player::moveForward(float delta, const std::list<Collidable *> &collidableL
 
 void Player::moveBackward(float delta, const std::list<Collidable *> &collidableList) {
     Vector3D preTranslationPosition = this->position;
-    this->position -= this->lowerPartDirection * this->SPEED * delta;
+    this->position -= this->lowerPartDirection * this->SPEED * delta * 0.5;
 
     if (this->isColliding(collidableList))
         this->position = preTranslationPosition;

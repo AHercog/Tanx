@@ -39,15 +39,18 @@ bool Bullet::shouldBeDestroyed(const std::list<Collidable *> &collidableList) co
         if (positionDifference.length() < collidable->getSize() / 2.0f) {
             auto enemy = dynamic_cast<EnemyLike *>(collidable);
 
-            if (enemy and this->isGood)
+            if (enemy and this->isGood) {
                 enemy->getHit(10);
+                return true;
+            }
 
             auto player = dynamic_cast<Player *>(collidable);
 
-            if (player and !this->isGood)
+            if (player and !this->isGood) {
                 player->getHit(10);
+                return true;
+            }
 
-            return true;
         }
     }
 
