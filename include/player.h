@@ -9,6 +9,7 @@
 #include <list>
 #include "bullet.h"
 #include "wall.h"
+#include "model_handler.h"
 
 class Player : public Collidable {
 public:
@@ -36,8 +37,12 @@ public:
 
     int getSize() const override { return this->SIZE; }
 
+    void getHit(int hp);
+
+    bool isAlive();
+
 private:
-    const int SIZE = 6;
+    const int SIZE = 10;
     const int SPEED = 40;
     const int ROTATION_SPEED = 180;
 
@@ -45,6 +50,7 @@ private:
     Vector3D position;
     Vector3D lowerPartDirection{1, 0, 0};
     Vector3D upperPartDirection{1, 0, 0};
+    ModelHandler modelHandler{const_cast<char *>("../assets/tank.obj")};
 
     bool isColliding(const std::list<Collidable *> &collidableList);
 };

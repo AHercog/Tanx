@@ -5,7 +5,7 @@
 #include <vector_3d.h>
 #include <player.h>
 #include <GL/freeglut.h>
-#include <cmath>
+#include <iostream>
 
 Player::Player(const Vector3D &coordinates) : position(coordinates) {
 }
@@ -16,20 +16,20 @@ void Player::run(float delta) {
 }
 
 void Player::render() {
-    glColor3f(0, 1, 0);
-
+    glColor3f(0.011, 0.662, 0.956);
     glPushMatrix();
-    glTranslatef(this->position.getX(), this->position.getY(), this->position.getZ() + this->SIZE / 2.0f);
+    glTranslatef(this->position.getX(), this->position.getY(), 0);
     glRotatef(this->lowerPartDirection.getAngleAlongZ(), 0, 0, 1);
-    glutSolidCube(this->SIZE);
+    this->modelHandler.drawModel(1);
     glPopMatrix();
 
+    glColor3f(0.376, 0.490, 0.545);
     glPushMatrix();
-    glTranslatef(this->position.getX(), this->position.getY(), this->position.getZ() + this->SIZE / 4.0f);
+    glTranslatef(this->position.getX(), this->position.getY(), 0);
     glRotatef(this->upperPartDirection.getAngleAlongZ(), 0, 0, 1);
-    glTranslatef(10, 0, 0);
-    glutSolidCube(this->SIZE / 2.0f);
+    this->modelHandler.drawModel(0);
     glPopMatrix();
+
 }
 
 void Player::rotateLeft(float delta) {
@@ -72,6 +72,14 @@ bool Player::isColliding(const std::list<Collidable *> &collidableList) {
 }
 
 Bullet Player::shoot() {
-    return Bullet{this->position + this->upperPartDirection * 10, this->upperPartDirection};
+    return Bullet{this->position + this->upperPartDirection * 10, this->upperPartDirection, true};
+}
+
+void Player::getHit(int hp) {
+    this->hp -= hp;
+}
+
+bool Player::isAlive() {
+    return this->hp > 0;
 }
 

@@ -42,6 +42,7 @@ private:
     Vector3D position;
     Vector3D lowerPartDirection{1, 0, 0};
     Vector3D upperPartDirection{1, 0, 0};
+    ModelHandler modelHandler{const_cast<char *>("../assets/tank.obj")};
 
     bool isColliding(const std::list<Collidable *> &collidableList);
 };

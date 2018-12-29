@@ -10,8 +10,9 @@
 
 #include "bullet.h"
 
-Bullet::Bullet(const Vector3D &position, const Vector3D &direction) : position(position),
-                                                                      direction(direction) {}
+Bullet::Bullet(const Vector3D &position, const Vector3D &direction, bool isGood) : position(position),
+                                                                                   direction(direction),
+                                                                                   isGood(isGood) {}
 
 void Bullet::run(float delta) {
     this->position += this->direction * this->SPEED * delta;
@@ -36,8 +37,15 @@ bool Bullet::shouldBeDestroyed(const std::list<Collidable *> &collidableList) co
         auto positionDifference = this->position - collidable->getPosition();
 
         if (positionDifference.length() < collidable->getSize() / 2.0f) {
-            if (auto enemy = dynamic_cast<EnemyLike *>(collidable))
+            auto enemy = dynamic_cast<EnemyLike *>(collidable);
+
+            if (enemy and this->isGood)
                 enemy->getHit(10);
+
+            auto player = dynamic_cast<Player *>(collidable);
+
+            if (player and !this->isGood)
+                player->getHit(10);
 
             return true;
         }

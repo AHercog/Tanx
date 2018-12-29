@@ -1,6 +1,5 @@
 #include <GL/freeglut.h>
 #include <player.h>
-#include <cstdio>
 #include <environment.h>
 #include <camera.h>
 #include <constants.h>
@@ -48,8 +47,8 @@ void run(float delta) {
     for (auto bullet = bulletList.begin(); bullet != bulletList.end(); ++bullet) {
         bullet->run(delta);
 
-//        if (bullet->shouldBeDestroyed(collidables))
-//            bullet = bulletList.erase(bullet);
+        if (bullet->shouldBeDestroyed(collidables))
+            bullet = bulletList.erase(bullet);
     }
 
     for (auto enemy = enemyList.begin(); enemy != enemyList.end(); ++enemy) {
@@ -60,6 +59,11 @@ void run(float delta) {
 
         if ((*enemy)->shouldBeDestroyed())
             enemy = enemyList.erase(enemy);
+    }
+
+    if (!player->isAlive()) {
+        std::cout << "KONIEC GRY";
+        exit(0);
     }
 }
 

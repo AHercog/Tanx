@@ -11,7 +11,7 @@
 
 class Bullet {
 public:
-    explicit Bullet(const Vector3D &position, const Vector3D &direction);
+    explicit Bullet(const Vector3D &position, const Vector3D &direction, bool isGood);
 
     void run(float delta);
 
@@ -22,6 +22,7 @@ public:
 private:
     const int SPEED = 150;
 
+    bool isGood;
     Vector3D direction;
     Vector3D position;
 };

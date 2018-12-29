@@ -40,19 +40,18 @@ void BasicEnemyTank::run(float delta, const std::list<Collidable *> &collidableL
 }
 
 void BasicEnemyTank::render() const {
-    glColor3f(1, 0, 0);
-
+    glColor3f(0.956, 0.262, 0.211);
     glPushMatrix();
-    glTranslatef(this->position.getX(), this->position.getY(), this->position.getZ() + this->SIZE / 2.0f);
+    glTranslatef(this->position.getX(), this->position.getY(), 0);
     glRotatef(this->lowerPartDirection.getAngleAlongZ(), 0, 0, 1);
-    glutSolidCube(this->SIZE);
+    this->modelHandler.drawModel(1);
     glPopMatrix();
 
+    glColor3f(0.376, 0.490, 0.545);
     glPushMatrix();
-    glTranslatef(this->position.getX(), this->position.getY(), this->position.getZ() + this->SIZE / 4.0f);
+    glTranslatef(this->position.getX(), this->position.getY(), 0);
     glRotatef(this->upperPartDirection.getAngleAlongZ(), 0, 0, 1);
-    glTranslatef(10, 0, 0);
-    glutSolidCube(this->SIZE / 2.0f);
+    this->modelHandler.drawModel(0);
     glPopMatrix();
 }
 
@@ -81,5 +80,5 @@ bool BasicEnemyTank::detectPlayer(const std::list<Wall *> &wallList, const Playe
 }
 
 Bullet BasicEnemyTank::shoot() {
-    return Bullet(this->position + this->upperPartDirection * 10, this->upperPartDirection);
+    return Bullet(this->position + this->upperPartDirection * 10, this->upperPartDirection, false);
 }
