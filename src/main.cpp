@@ -120,7 +120,7 @@ void display() {
 void reshapeScreen(int width, int height) {
     glViewport(0, 0, (GLsizei) width, (GLsizei) height);
     glMatrixMode(GL_PROJECTION);
-    gluPerspective(90, (GLfloat) width / (GLfloat) height, 0.1f, 100.0f);
+    gluPerspective(90, (GLfloat) width / (GLfloat) height, 0.1f, 1000.0f);
     glMatrixMode(GL_MODELVIEW);
 }
 
