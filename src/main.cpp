@@ -5,8 +5,11 @@
 #include <constants.h>
 #include <enemies/enemy_like.h>
 #include <enemies/enemy_factory.h>
-#include <enemies/basic_enemy_tank.h>
 #include <iostream>
+#include <effolkronium/random.hpp>
+#include <enemies/basic_enemy_tank.h>
+
+using Random = effolkronium::random_static;
 
 Camera *camera;
 Player *player;
@@ -18,8 +21,20 @@ std::list<Wall *> wallList;
 std::list<EnemyLike *> enemyList;
 
 int mouseX, mouseY;
+auto points = 0;
 auto actualTime = 0;
 auto pressedKeys = new char[256];
+
+void createEnemy() {
+    auto firstIndex = Random::get(0, static_cast<int>(WALLS_COORDINATES.size()) - 1);
+    auto secondIndex = Random::get(0, static_cast<int>(WALLS_COORDINATES[firstIndex].size()) - 1);
+
+    if (WALLS_COORDINATES[firstIndex][secondIndex] == 0)
+        enemyList.push_back(new BasicEnemyTank{Vector3D{static_cast<float>(secondIndex * Wall::SIZE),
+                                                        static_cast<float>(firstIndex * Wall::SIZE), 0}});
+    else
+        createEnemy();
+}
 
 void run(float delta) {
     std::list<Collidable *> collidables;
@@ -57,14 +72,19 @@ void run(float delta) {
         if ((*enemy)->detectPlayer(wallList, player))
             bulletList.push_back((*enemy)->shoot());
 
-        if ((*enemy)->shouldBeDestroyed())
+        if ((*enemy)->shouldBeDestroyed()) {
             enemy = enemyList.erase(enemy);
+            points += 1;
+        }
     }
 
     if (!player->isAlive()) {
-        std::cout << "KONIEC GRY";
+        std::cout << "Koniec gry! Zdobyłeś " << points << " punktów.";
         exit(0);
     }
+
+    if (enemyList.size() * 10 < actualTime / 1000.0f)
+        createEnemy();
 }
 
 void render() {
@@ -126,16 +146,15 @@ void mouseButton(int button, int state, int x, int y) {
 }
 
 void createInstances() {
-    player = new Player{Vector3D{0, 0, 0}};
+    player = new Player{Vector3D{20, 20, 0}};
     environment = new Environment();
     camera = new Camera(player->getPosition());
     enemyFactory = new EnemyFactory();
 
-    for (const auto wallPosition : WALLS_POSITIONS)
-        wallList.push_back(new Wall{wallPosition});
-
-    enemyList.push_back(new BasicEnemyTank{Vector3D{-30, 10, 0}});
-    enemyList.push_back(new BasicEnemyTank{Vector3D{-45, 15, 0}});
+    for (int i = 0; i < WALLS_COORDINATES.size(); ++i)
+        for (int j = 0; j < WALLS_COORDINATES[i].size(); ++j)
+            if (WALLS_COORDINATES[i][j] == 1)
+                wallList.push_back(new Wall{Vector3D{static_cast<float>(j), static_cast<float>(i), 0} * Wall::SIZE});
 }
 
 void init(int argc, char **argv) {

@@ -1,1 +1,1 @@
-/usr/bin/c++      CMakeFiles/random_local_test.dir/random_test.cpp.o  -o random_local_test -rdynamic -lpthread 
+/usr/bin/c++    -rdynamic CMakeFiles/random_local_test.dir/random_test.cpp.o  -o random_local_test -lpthread 

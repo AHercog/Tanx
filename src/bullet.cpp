@@ -8,8 +8,6 @@
 #include <cmath>
 #include <enemies/enemy_like.h>
 
-#include "bullet.h"
-
 Bullet::Bullet(const Vector3D &position, const Vector3D &direction, bool isGood) : position(position),
                                                                                    direction(direction),
                                                                                    isGood(isGood) {}
@@ -30,27 +28,21 @@ void Bullet::render() const {
 }
 
 bool Bullet::shouldBeDestroyed(const std::list<Collidable *> &collidableList) const {
-    if (std::fabs(this->position.getX()) > 100 or std::fabs(this->position.getY()) > 100)
-        return true;
-
     for (const auto collidable : collidableList) {
         auto positionDifference = this->position - collidable->getPosition();
 
         if (positionDifference.length() < collidable->getSize() / 2.0f) {
             auto enemy = dynamic_cast<EnemyLike *>(collidable);
 
-            if (enemy and this->isGood) {
+            if (enemy and this->isGood)
                 enemy->getHit(10);
-                return true;
-            }
 
             auto player = dynamic_cast<Player *>(collidable);
 
-            if (player and !this->isGood) {
+            if (player and !this->isGood)
                 player->getHit(10);
-                return true;
-            }
 
+            return true;
         }
     }
 

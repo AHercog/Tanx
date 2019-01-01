@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/silvair/Projekty/czolgi/dependencies/random/test/catch.hpp
+/home/xaaq/my-projects/Tanx/dependencies/random/test/catch.hpp
 sstream
 -
 algorithm
@@ -184,7 +184,7 @@ algorithm
 map
 -
 Foundation/Foundation.h
-/home/silvair/Projekty/czolgi/dependencies/random/test/Foundation/Foundation.h
+/home/xaaq/my-projects/Tanx/dependencies/random/test/Foundation/Foundation.h
 map
 -
 sstream
@@ -250,13 +250,13 @@ cfloat
 cstdio
 -
 
-/home/silvair/Projekty/czolgi/dependencies/random/test/current_random.hpp
+/home/xaaq/my-projects/Tanx/dependencies/random/test/current_random.hpp
 effolkronium/random.hpp
-/home/silvair/Projekty/czolgi/dependencies/random/test/effolkronium/random.hpp
+/home/xaaq/my-projects/Tanx/dependencies/random/test/effolkronium/random.hpp
 
-/home/silvair/Projekty/czolgi/dependencies/random/test/random_test.cpp
+/home/xaaq/my-projects/Tanx/dependencies/random/test/random_test.cpp
 catch.hpp
-/home/silvair/Projekty/czolgi/dependencies/random/test/catch.hpp
+/home/xaaq/my-projects/Tanx/dependencies/random/test/catch.hpp
 limits
 -
 sstream
@@ -268,7 +268,7 @@ thread
 vector
 -
 current_random.hpp
-/home/silvair/Projekty/czolgi/dependencies/random/test/current_random.hpp
+/home/xaaq/my-projects/Tanx/dependencies/random/test/current_random.hpp
 
 test/../include/effolkronium/random.hpp
 random

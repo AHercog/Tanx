@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/silvair/Projekty/czolgi/dependencies/random/test/random_test.cpp" "/home/silvair/Projekty/czolgi/dependencies/random/test/CMakeFiles/random_static_test.dir/random_test.cpp.o"
+  "/home/xaaq/my-projects/Tanx/dependencies/random/test/random_test.cpp" "/home/xaaq/my-projects/Tanx/dependencies/random/test/CMakeFiles/random_static_test.dir/random_test.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

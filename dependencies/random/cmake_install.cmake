@@ -1,4 +1,4 @@
-# Install script for directory: /home/silvair/Projekty/Tanx/dependencies/random
+# Install script for directory: /home/xaaq/my-projects/Tanx/dependencies/random
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -32,15 +32,20 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   set(CMAKE_INSTALL_SO_NO_EXE "1")
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/silvair/Projekty/czolgi/dependencies/random/include/effolkronium")
+# Is this installation the result of a crosscompile?
+if(NOT DEFINED CMAKE_CROSSCOMPILING)
+  set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/xaaq/my-projects/Tanx/dependencies/random/include/effolkronium")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/cmake/effolkronium_randomTargets.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/cmake/effolkronium_randomTargets.cmake"
-         "/home/silvair/Projekty/czolgi/dependencies/random/CMakeFiles/Export/cmake/effolkronium_randomTargets.cmake")
+         "/home/xaaq/my-projects/Tanx/dependencies/random/CMakeFiles/Export/cmake/effolkronium_randomTargets.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/cmake/effolkronium_randomTargets-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -49,19 +54,19 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/cmake" TYPE FILE FILES "/home/silvair/Projekty/czolgi/dependencies/random/CMakeFiles/Export/cmake/effolkronium_randomTargets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/cmake" TYPE FILE FILES "/home/xaaq/my-projects/Tanx/dependencies/random/CMakeFiles/Export/cmake/effolkronium_randomTargets.cmake")
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/cmake" TYPE FILE FILES
-    "/home/silvair/Projekty/czolgi/dependencies/random/effolkronium_randomConfig.cmake"
-    "/home/silvair/Projekty/czolgi/dependencies/random/effolkronium_randomConfigVersion.cmake"
+    "/home/xaaq/my-projects/Tanx/dependencies/random/effolkronium_randomConfig.cmake"
+    "/home/xaaq/my-projects/Tanx/dependencies/random/effolkronium_randomConfigVersion.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/silvair/Projekty/czolgi/dependencies/random/test/cmake_install.cmake")
+  include("/home/xaaq/my-projects/Tanx/dependencies/random/test/cmake_install.cmake")
 
 endif()
 
@@ -73,5 +78,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/silvair/Projekty/czolgi/dependencies/random/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/xaaq/my-projects/Tanx/dependencies/random/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
